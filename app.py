@@ -19,6 +19,8 @@ class Entry(db.Model):
 def index():
     if request.method == "POST":
         url = request.form["url"]
+        # if not url.endswith('/'):
+        #     url += '/'
         title = request.form["title"].strip()
 
         # 如果标题为空，从 URL 爬取标题
@@ -30,6 +32,7 @@ def index():
                 if title is None:
                     title = url
             except Exception as e:
+                logging.error(f"Error occured in get_title_by_url: {e}")
                 title = url  # 如果爬取失败，使用 URL 作为标题
 
         # 保存到数据库
@@ -103,4 +106,4 @@ if __name__ == "__main__":
     setup_logging()
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
