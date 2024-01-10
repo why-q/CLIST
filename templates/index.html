@@ -1,106 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CList</title>
     <style>
-        .input-group {
-            display: flex; /* 使用flex布局 */
-            align-items: baseline; /* 垂直居中对齐 */
-            margin-bottom: 10px; /* 与下一个输入组的间隔 */
-        }
-        .input-group label {
-            margin-right: 10px; /* 标签与输入框之间的间隔 */
-        }
-        .input-group input[type="text"] {
-            flex-grow: 0.6; /* 输入框占据剩余空间 */
-            display: inline-block; /* 行内块元素 */
-            border: none;
-            border-bottom: 1px solid #ccc;
-            background-color: transparent;
-            outline: none;
-            /* 调整内边距和边距以适应对齐 */
-            padding: 0px 0;
-            margin: 0;
-        }
-        .delete-btn {
-            margin-left: 10px; /* 与链接之间的距离 */
-            cursor: pointer; /* 鼠标悬停时显示指针 */
-        }
-        body {
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* justify-content: center; */
-            /* min-height: 100vh; */
-        }
-        form, ul {
-            width: 80%;
-            max-width: 500px;
-            margin: auto;
-        }
-        input[type="text"] {
-            width: 50%; /* 输入框的宽度 */
-            padding: 2px; /* 输入框的内边距 */
-            margin: 10px auto;
-            margin-bottom: 5px; /* 输入框之间的间隔 */
-            display: block; /* 使输入框独占一行 */
-        }
-        input[type="text"] {
-            border: none; /* 移除边框 */
-            border-bottom: 1px solid #ccc; /* 底部添加一条横线 */
-            background-color: transparent; /* 背景透明 */
-        }
-        input[type="text"]:focus {
-            outline: none; /* 移除输入框选中时的外框 */
-        }
-        button {
-            width: 10%; /* 按钮的宽度与输入框保持一致 */
-            padding: 5px;
-            display: block; /* 按钮独占一行 */
-            margin: 10px auto;
-            margin-bottom: 40px; /* 按钮与下面内容的间隔 */
-        }
-        hr {
-            width: 80%;
-            max-width: 500px;
-            border: 0;
-            height: 1px;
-            background-color: #ccc;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        ul {
-            padding-left: 20px;
-        }
+        body,
+        h1,
+        h2,
+        p,
+        form,
+        ul,
         li {
-            text-align: left;
+            margin: auto;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1,
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            flex-basis: auto;
+            text-align: center;
+        }
+
+        .input-group input[type="text"],
+        button {
+            flex-grow: 1;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .delete-btn {
+            /* float: right; */
+            margin-left: 2px;
+            cursor: pointer;
+            color: red;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                text-align: left;
+                padding: 10px;
+            }
+
+            form,
+            ul {
+                width: 100%;
+            }
+
+            li {
+                width: 100%;
+                text-align: left;
+            }
+
+            h1,
+            h2 {
+                margin-top: 15px;
+                margin-bottom: 20px;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-group label {
+                text-align: left;
+                margin-bottom: 5px;
+            }
+
+            .input-group input[type="text"],
+            button {
+                margin-left: 0;
+                margin-bottom: 10px;
+                width: 80%;
+            }
+
+            button {
+                width: 88%;
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>CList</h1>
-    
+    <h1>CLIST</h1>
+    <p>突发奇想写的一个网页，作为一个待查看url列表的简易展示界面。</p>
+    <p>请注意：</p>
+    <p>1.若页面过长，请手动添加标题，否则可能卡死。</p>
+    <p>2.自动获取标题需要大概30s的时间，请耐心等待。</p>
+    <p style="margin-bottom: 20px;">3.由于服务器性能一般，随时可能爆炸。</p>
+
     <form method="POST" action="/">
         <div class="input-group">
-            <label for="url">Input URL: </label>
+            <label for="url">Enter your URL</label>
             <input type="text" id="url" name="url" required>
         </div>
-        
+
         <div class="input-group">
-            <label for="title">Input title (optional): </label>
-            <input type="text" id="title" name="title">
+            <label for="title">Enter URL's title</label>
+            <input type="text" id="title" name="title" placeholder="Optional">
             <button type="submit">Add</button>
         </div>
     </form>
 
-    <!-- <hr> -->
-
-    <h2> List </h2>
+    <h2 style="margin-top: 20px;">List</h2>
 
     <ul>
         {% for entry in entries %}
@@ -110,19 +160,20 @@
         </li>
         {% endfor %}
     </ul>
-    
 
     <script>
         function deleteItem(element) {
             var li = element.parentElement;
-            var entryId = li.getAttribute('data-id'); // 获取条目 ID
-            // 发送删除请求到 Flask
-            fetch('/delete/' + entryId).then(response => {
-                if (response.ok) {
-                    li.parentNode.removeChild(li);
-                }
-            });
+            var entryId = li.getAttribute('data-id');
+            if (confirm('是否要删除此链接？')) {
+                fetch('/delete/' + entryId).then(response => {
+                    if (response.ok) {
+                        li.parentNode.removeChild(li);
+                    }
+                });
+            }
         }
     </script>
 </body>
+
 </html>
